@@ -1,0 +1,12 @@
+Video: 240626105446
+
+Extracted Motion Features:
+mean_motion: 1.098917841911316
+std_motion: 0.9398688673973083
+max_motion: 4.650856018066406
+direction_variance: 0.060948166996240616
+acceleration_std: 0.7778453826904297
+
+Probe Stability Index: 68.91 / 100
+
+Interpretation: Moderate stability with noticeable motion variation.
