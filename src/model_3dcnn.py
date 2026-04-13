@@ -15,11 +15,10 @@ class CNN3D(nn.Module):
         self.conv3 = nn.Conv3d(64, 128, kernel_size=3, padding=1)
         self.pool3 = nn.MaxPool3d(2)
 
-        self.fc1 = nn.Linear(128 * 2 * 14 * 14, 256)
+        self.fc1 = nn.Linear(128 * 1 * 8 * 8, 256)
         self.fc2 = nn.Linear(256, num_classes)
 
     def forward(self, x):
-        # Input: (B, T, H, W, C) → (B, C, T, H, W)
         x = x.permute(0, 4, 1, 2, 3)
 
         x = F.relu(self.conv1(x))
@@ -31,9 +30,10 @@ class CNN3D(nn.Module):
         x = F.relu(self.conv3(x))
         x = self.pool3(x)
 
-        x = x.view(x.size(0), -1)
+        x = x.reshape(x.size(0), -1)
 
         x = F.relu(self.fc1(x))
         x = self.fc2(x)
 
         return x
+    
