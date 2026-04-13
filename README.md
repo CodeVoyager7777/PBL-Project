@@ -1,114 +1,151 @@
-<<<<<<< HEAD
-# Optical Flow-Based Probe Stability Analysis
+# 🎯 Real-Time Optical Flow for Probe Trajectory Scoring
 
-## Overview
-
-This project analyzes ultrasound probe motion stability using dense optical flow and motion feature engineering.  
-
-The system processes raw ultrasound videos and computes a quantitative **Probe Stability Index (0–100)** based on motion magnitude, direction consistency, and temporal acceleration patterns.
-
-The goal is to evaluate probe handling smoothness through motion analysis without relying on supervised learning.
+### Extracting Motion Patterns from Fetal Ultrasound (US)
 
 ---
 
-## Problem Statement
+## 📌 Overview
 
-In ultrasound imaging, stable probe movement is essential for acquiring consistent and high-quality scans.  
-This project proposes an unsupervised motion analytics pipeline to quantify probe stability using optical flow.
+This project focuses on analyzing **probe movement in fetal ultrasound videos** using **Optical Flow** and **Deep Learning** techniques.
 
----
-
-## Methodology
-
-The pipeline consists of:
-
-1. **Video Preprocessing**
-   - Frame extraction
-   - Grayscale conversion
-   - Noise reduction using Gaussian blur
-
-2. **Optical Flow Computation**
-   - Dense Optical Flow (Farneback method)
-   - Pixel-wise motion estimation between consecutive frames
-
-3. **Feature Extraction**
-   - Mean motion magnitude
-   - Motion standard deviation
-   - Maximum motion
-   - Direction variance
-   - Acceleration variability
-
-4. **Stability Index Computation**
-   - Composite score (0–100)
-   - Penalizes instability, abrupt motion, and inconsistency
-
-5. **Visualization & Reporting**
-   - Motion magnitude vs frame plots
-   - Structured motion report generation
+The system computes motion-based **stability scores** and uses them to automatically generate labels, followed by training a **3D Convolutional Neural Network (3D CNN)** for classification of probe trajectory quality.
 
 ---
 
-## Project Structure
+## 🚀 Key Features
 
-Data/
-raw_videos/
-
-Results/
-plots/
-motion_reports/
-
-src/
-preprocessing.py
-optical_flow.py
-feature_extraction.py
-stability_index.py
-visualization.py
-main.py
+* 🎥 Video preprocessing and frame extraction
+* 🌊 Optical Flow-based motion analysis
+* 📊 Stability score computation
+* 🏷️ Automatic dataset labeling
+* 🗂️ Dataset organization (stable vs unstable)
+* 🧠 3D CNN model for classification
+* 📈 Model training and evaluation
 
 ---
 
-## How to Run
+## 🧠 Project Pipeline
 
-1. Place ultrasound videos inside:
-
-Data/raw_videos/
-2. Navigate to the source directory:
-
-cd src
-3. Run:
-
-python main.py
-
-4. Outputs will be saved inside:
-
----
-
-## Output
-
-For each video:
-
-- Motion magnitude plot
-- Extracted feature values
-- Probe Stability Index (0–100)
-- Text-based motion analysis report
+```plaintext
+Raw Ultrasound Videos
+        ↓
+Optical Flow Analysis (main.py)
+        ↓
+Motion Features + Stability Score
+        ↓
+Auto Label Generation (sort_dataset.py)
+        ↓
+Structured Dataset
+   ├── stable/
+   └── unstable/
+        ↓
+3D CNN Training (train.py)
+        ↓
+Classification Accuracy
+```
 
 ---
 
-## Technologies Used
+## 📁 Project Structure
 
-- Python
-- OpenCV
-- NumPy
-- Matplotlib
+```plaintext
+PBL-Project/
+│
+├── src/
+│   ├── main.py              # Optical flow + feature extraction
+│   ├── sort_dataset.py     # Label generation + sorting
+│   ├── train.py            # Model training
+│   ├── data_loader.py      # Dataset loading
+│   ├── model_3dcnn.py      # 3D CNN model
+│
+├── dataset/
+│   ├── stable/
+│   └── unstable/
+│
+├── data/
+│   └── labels.xlsx
+│
+├── Results/
+│   └── final_results.xlsx
+│
+├── requirements.txt
+└── README.md
+```
 
 ---
 
-## Notes
+## ⚙️ Installation
 
-- This system performs motion stability analysis only.
-- It does not perform medical diagnosis.
-- The approach is unsupervised and feature-driven.
+```bash
+git clone https://github.com/CodeVoyager7777/PBL-Project.git
+cd PBL-Project
+python -m venv venv
+venv\Scripts\activate
+pip install -r requirements.txt
+```
 
-=======
-# PBL-Project
->>>>>>> dcc152b8dba938bfbfbceb73b8c6d571449c38ea
+---
+
+## ▶️ Usage
+
+### 1️⃣ Optical Flow Analysis
+
+```bash
+python src/main.py
+```
+
+### 2️⃣ Dataset Preparation
+
+```bash
+python src/sort_dataset.py
+```
+
+### 3️⃣ Model Training
+
+```bash
+python src/train.py
+```
+
+---
+
+## 🧪 Model Details
+
+* Model: **3D Convolutional Neural Network (3D CNN)**
+* Input: Video clips
+* Frame size: `64 × 64`
+* Frames per video: `8`
+* Classes:
+
+  * Stable Probe Movement
+  * Unstable Probe Movement
+
+---
+
+## 💡 Core Idea
+
+Instead of manual labeling, this system:
+
+> **Automatically generates labels using motion-based stability scores derived from optical flow analysis**
+
+This enables scalable and intelligent dataset creation.
+
+---
+
+## 📈 Future Scope
+
+* Real-time deployment in ultrasound systems
+* Integration with medical decision support
+* Improved motion feature extraction
+* Higher accuracy deep learning models
+
+---
+
+## 👨‍💻 Author
+
+Laksh Makkar
+
+---
+
+## ⭐ Note
+
+This project demonstrates a complete pipeline combining **Computer Vision (Optical Flow)** and **Deep Learning (3D CNN)** for real-world medical video analysis.
